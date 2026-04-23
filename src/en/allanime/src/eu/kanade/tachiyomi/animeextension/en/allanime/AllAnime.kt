@@ -430,7 +430,7 @@ class AllAnime :
             startsWith("#-") -> substring(2) to 2
             startsWith("##") -> substring(2) to 1
             startsWith("-#") -> substring(2) to 4
-            startsWith("#")  -> substring(1) to 0
+            startsWith("#") -> substring(1) to 0
             else -> return this
         }
         val mask = XOR_MASKS[keyType]
@@ -525,7 +525,7 @@ class AllAnime :
 
         // 3. Derive the AES-GCM key: SHA-256("${DECRYPT_SECRET}:v${versionByte}")
         val keyBytes = MessageDigest.getInstance(DECRYPT_KEY_ALGO)
-            .digest("${DECRYPT_SECRET}:v${versionByte}".toByteArray(Charsets.UTF_8))
+            .digest("${DECRYPT_SECRET}:v$versionByte".toByteArray(Charsets.UTF_8))
 
         // 4. Initialize the AES-GCM Cipher
         val cipher = Cipher.getInstance(DECRYPT_CIPHER_ALGO)
@@ -618,6 +618,7 @@ class AllAnime :
             "s5feqxw21",
             "feqx1",
         )
+
         // Pre-compute cumulative XOR mask for each key (XOR of all char codes)
         private val XOR_MASKS = XOR_KEYS.map { key ->
             key.fold(0) { mask, ch -> mask xor ch.code }
