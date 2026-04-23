@@ -306,7 +306,9 @@ class AllAnime :
             .awaitSuccess().bodyString()
 
         // 1. Check for encrypted response (tobeparsed present)
-        val tobeparsed = responseBody.parseAs<EncryptedEpisodeResult>().data.tobeparsed
+        val tobeparsed = runCatching {
+            responseBody.parseAs<EncryptedEpisodeResult>().data.tobeparsed
+        }.getOrNull()
 
         // 2. If encrypted, decrypt directly (errors surface to user); otherwise parse as plain text
         val sourceUrls = if (!tobeparsed.isNullOrBlank()) {
