@@ -518,6 +518,7 @@ class AllAnime :
         val blob = Base64.decode(base64Payload, Base64.DEFAULT)
 
         // 2. Extract version byte (blob[0]), IV (blob[1..12]), and ciphertext (blob[13+])
+        if (blob.size < 13) return ""
         val versionByte = blob[0].toInt() and 0xFF
         val iv = blob.sliceArray(1 until 13)
         val encryptedData = blob.sliceArray(13 until blob.size)
