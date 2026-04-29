@@ -108,8 +108,9 @@ object AllAnimeFilters {
             Pair("Fall", "Fall"),
         )
 
-        // dynamic from 1975 till now
-        val YEARS = arrayOf(ALL) + (Calendar.getInstance().get(Calendar.YEAR) downTo 1975)
+        // current year, but not less than 2026
+        private val currentYear = Calendar.getInstance().get(Calendar.YEAR).coerceAtLeast(2026)
+        val YEARS = arrayOf(ALL) + (currentYear downTo 1975)
             .map { Pair(it.toString(), it.toString()) }
             .toTypedArray()
 
