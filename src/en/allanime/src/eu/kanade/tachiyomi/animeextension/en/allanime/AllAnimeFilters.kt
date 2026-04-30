@@ -41,6 +41,7 @@ object AllAnimeFilters {
             }
         }
 
+    class TrackFilter : QueryPartFilter("Tracks", AllAnimeFiltersData.TRACKS)
     class OriginFilter : QueryPartFilter("Origin", AllAnimeFiltersData.ORIGIN)
     class SeasonFilter : QueryPartFilter("Season", AllAnimeFiltersData.SEASONS)
     class ReleaseYearFilter : QueryPartFilter("Released at", AllAnimeFiltersData.YEARS)
@@ -59,6 +60,7 @@ object AllAnimeFilters {
         )
 
     val FILTER_LIST get() = AnimeFilterList(
+        TrackFilter(),
         OriginFilter(),
         SeasonFilter(),
         ReleaseYearFilter(),
@@ -69,6 +71,7 @@ object AllAnimeFilters {
     )
 
     data class FilterSearchParams(
+        val tracks: String = "",
         val origin: String = "",
         val season: String = "",
         val releaseYear: String = "",
@@ -81,6 +84,7 @@ object AllAnimeFilters {
         if (filters.isEmpty()) return FilterSearchParams()
 
         return FilterSearchParams(
+            filters.asQueryPart<TrackFilter>(),
             filters.asQueryPart<OriginFilter>(),
             filters.asQueryPart<SeasonFilter>(),
             filters.asQueryPart<ReleaseYearFilter>(),
@@ -92,6 +96,11 @@ object AllAnimeFilters {
 
     private object AllAnimeFiltersData {
         val ALL = Pair("All", "all")
+
+        val TRACKS = arrayOf(
+            Pair("Sub", "sub"),
+            Pair("Dub", "dub"),
+        )
 
         val ORIGIN = arrayOf(
             Pair("All", "ALL"),
@@ -115,7 +124,7 @@ object AllAnimeFilters {
             .toTypedArray()
 
         val SORT_BY = arrayOf(
-            Pair("Update", "update"),
+            Pair("Update", "Recent"),
             Pair("Name Asc", "Name_ASC"),
             Pair("Name Desc", "Name_DESC"),
             Pair("Ratings", "Top"),
