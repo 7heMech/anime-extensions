@@ -121,7 +121,6 @@ class AllAnime :
 
     override fun searchAnimeRequest(page: Int, query: String, filters: AnimeFilterList): Request {
         val filters = AllAnimeFilters.getSearchParameters(filters)
-        val translationType = if (filters.tracks == "") preferences.subPref else filters.tracks
 
         val data = buildJsonObject {
             putJsonObject("variables") {
