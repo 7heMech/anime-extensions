@@ -115,7 +115,7 @@ object AllAnimeFilters {
             .toTypedArray()
 
         val SORT_BY = arrayOf(
-            Pair("Update", "update"),
+            Pair("Update", "Recent"),
             Pair("Name Asc", "Name_ASC"),
             Pair("Name Desc", "Name_DESC"),
             Pair("Ratings", "Top"),
